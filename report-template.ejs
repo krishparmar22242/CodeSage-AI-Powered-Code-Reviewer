@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AI Code Review Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h1,
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 40px;
+        }
+
+        .code-block {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .feedback-item {
+            border-left: 5px solid;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .Error {
+            border-color: #d9534f;
+        }
+
+        .Warning {
+            border-color: #f0ad4e;
+        }
+
+        .Suggestion {
+            border-color: #5bc0de;
+        }
+
+        .feedback-header {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-code {
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 4px;
+            display: block;
+            margin-top: 10px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .summary-box {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .summary-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>AI Code Review Report</h1>
+    <p>Generated on: <%= new Date().toLocaleString() %>
+    </p>
+
+    <div class="summary-box">
+        <h2>Executive Summary</h2>
+        <p class="summary-item"><strong>Language:</strong>
+            <%= language.charAt(0).toUpperCase() + language.slice(1) %>
+        </p>
+        <p class="summary-item"><strong>Total Issues Found:</strong>
+            <%= review.length %>
+        </p>
+        <p class="summary-item"><strong>Errors:</strong>
+            <%= review.filter(i=> i.type === 'Error').length %>
+        </p>
+        <p class="summary-item"><strong>Warnings:</strong>
+            <%= review.filter(i=> i.type === 'Warning').length %>
+        </p>
+    </div>
+
+    <h2>Original Code</h2>
+    <div class="code-block">
+        <pre><code><%= code %></code></pre>
+    </div>
+
+    <h2>Detailed Feedback</h2>
+    <% if (review.length> 0) { %>
+        <% review.forEach(item=> { %>
+            <div class="feedback-item <%= item.type %>">
+                <div class="feedback-header">
+                    <%= item.type %> at Line <%= item.line %>
+                </div>
+                <p>
+                    <%= item.message %>
+                </p>
+                <p><strong>Suggestion:</strong></p>
+                <code class="suggestion-code"><%= item.suggestion %></code>
+            </div>
+            <% }); %>
+                <% } else { %>
+                    <p>No issues found. Great job!</p>
+                    <% } %>
+</body>
+
+</html>
