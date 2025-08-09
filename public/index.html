@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Reviewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="light-mode">
+    <header>
+        <h1><i class="fas fa-robot"></i> CodeSage</h1>
+        <div class="controls">
+            <select id="language-select">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="java">Java</option>
+            </select>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <div class="editor-container" id="left-panel"> <!-- Add id="left-panel" -->
+            <h2>Your Code</h2>
+            <textarea id="code-editor" placeholder="Paste your code here..."></textarea>
+            <div class="editor-buttons">
+                <button id="review-btn">Review Code <i class="fas fa-cogs"></i></button>
+                <label for="file-upload" class="upload-btn">
+                    <i class="fas fa-upload"></i> Upload File
+                </label>
+                <input type="file" id="file-upload" accept=".py,.js,.java,.txt" hidden>
+            </div>
+            <span id="file-name-display"></span> <!-- To show the name of the uploaded file -->
+        </div>
+    
+        <!-- ADD THIS NEW ELEMENT -->
+        <div class="resizer" id="resizer"></div>
+    
+        <div class="results-container" id="right-panel">
+            <h2 class="results-header">
+                <span>Review Feedback</span>
+                <button id="download-report-btn" class="hidden" title="Download Report">
+                    <i class="fas fa-download"></i>
+                </button>
+            </h2>
+            <div id="loader" class="hidden"></div>
+            <!-- This is where individual issues go -->
+            <div id="results">
+                <p class="placeholder">Your code review results will appear here.</p>
+            </div>
+        
+            <!-- ADD THIS NEW CONTAINER FOR THE FINAL FIXED CODE -->
+            <div id="fixed-code-container" class="hidden">
+                <h3>Recommended Fix Solution</h3>
+                <div class="code-block-wrapper">
+                    <pre><code id="fixed-code-block"></code></pre>
+                    <button id="copy-code-btn" title="Copy Code"><i class="far fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

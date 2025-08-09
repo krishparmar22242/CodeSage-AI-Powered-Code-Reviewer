@@ -1,0 +1,372 @@
+/* style.css */
+:root {
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+}
+
+.light-mode {
+    --bg-primary: #f4f7f9;
+    --bg-secondary: #ffffff;
+    --text-primary: #1d2129;
+    --text-secondary: #606770;
+    --border-color: #dddfe2;
+    --accent-color: #4267B2;
+    --green-feedback: #42b72a;
+    --yellow-feedback: #f7b928;
+    --red-feedback: #f02849;
+}
+
+.dark-mode {
+    --bg-primary: #18191a;
+    --bg-secondary: #242526;
+    --text-primary: #e4e6eb;
+    --text-secondary: #b0b3b8;
+    --border-color: #3a3b3c;
+    --accent-color: #2d88ff;
+    --green-feedback: #2d9d42;
+    --yellow-feedback: #f5b300;
+    --red-feedback: #ff4d6a;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    margin: 0;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    color: var(--accent-color);
+}
+
+.controls button,
+.controls select {
+    background-color: var(--bg-secondary);
+    /* This fixes the dark mode issue */
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+/* --- MODIFICATION #2: UPDATE MAIN LAYOUT --- */
+main {
+    display: grid;
+    /* Change to a 3-column layout: left-panel, resizer, right-panel */
+    grid-template-columns: 1fr 10px 1fr;
+    gap: 0;
+    /* Remove gap, the resizer handles the space */
+    padding: 2rem;
+    padding-top: 1rem;
+    height: calc(100vh - 85px);
+    /* Adjusted height slightly */
+}
+
+.editor-container,
+.results-container {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+#code-editor {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    padding: 1rem;
+    resize: none;
+}
+
+#review-btn {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+#review-btn:hover {
+    opacity: 0.9;
+}
+
+#results {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.resizer {
+    background-color: var(--border-color);
+    cursor: col-resize;
+    /* Shows the user they can drag this */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-speed);
+}
+
+.resizer:hover {
+    background-color: var(--accent-color);
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#download-report-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+#download-report-btn.hidden {
+    display: none;
+}
+
+.explain-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-top: 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.explain-btn:hover {
+    opacity: 1;
+}
+
+.explanation-area {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--bg-secondary);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+
+.placeholder {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.feedback-item {
+    border-left: 4px solid;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius);
+}
+
+.feedback-item.Error {
+    border-color: var(--red-feedback);
+}
+
+.feedback-item.Warning {
+    border-color: var(--yellow-feedback);
+}
+
+.feedback-item.Suggestion {
+    border-color: var(--yellow-feedback);
+}
+
+.feedback-header {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.feedback-header .type-Error {
+    color: var(--red-feedback);
+}
+
+.feedback-header .type-Warning,
+.feedback-header .type-Suggestion {
+    color: var(--yellow-feedback);
+}
+
+.feedback-suggestion {
+    margin-top: 0.5rem;
+    background-color: var(--bg-secondary);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+}
+
+/* Loader animation */
+#loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid var(--accent-color);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.feedback-item p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.feedback-suggestion pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.feedback-suggestion code {
+    word-break: break-all;
+}
+
+.explanation-area {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+#fixed-code-container {
+    margin-top: 2rem;
+    border-top: 2px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+#fixed-code-container.hidden {
+    display: none;
+}
+
+#fixed-code-container h3 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.code-block-wrapper {
+    position: relative;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.code-block-wrapper pre {
+    padding: 1rem;
+    margin: 0;
+    /* Reset margin for pre */
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+#copy-code-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 5px;
+    padding: 5px 8px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+#copy-code-btn:hover {
+    opacity: 1;
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.editor-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+/* Make the review button take up remaining space if needed */
+#review-btn {
+    flex-grow: 1;
+    margin-top: 0;
+    /* Override previous margin */
+}
+
+.upload-btn {
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: center;
+    transition: background-color var(--transition-speed);
+    white-space: nowrap;
+}
+
+.upload-btn:hover {
+    background-color: var(--bg-primary);
+}
+
+#file-name-display {
+    margin-top: 0.5rem;
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+}
